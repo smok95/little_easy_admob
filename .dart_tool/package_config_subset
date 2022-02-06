@@ -1,3 +1,7 @@
+app_tracking_transparency
+2.12
+file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/app_tracking_transparency-2.0.2+1/
+file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/app_tracking_transparency-2.0.2+1/lib/
 async
 2.12
 file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.1/
@@ -30,6 +34,10 @@ flutter_lints
 2.12
 file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/
 file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib/
+google_mobile_ads
+2.12
+file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/google_mobile_ads-1.0.1/
+file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/google_mobile_ads-1.0.1/lib/
 lints
 2.12
 file:///Users/smok95/dev/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/

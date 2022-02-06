@@ -1,7 +1,7 @@
 name: little_easy_admob
-description: 아주 조금 쉬운 AdMob
+description: 조금 쉬운 AdMob
 version: 0.0.1
-homepage: 
+homepage: https://github.com/smok95/little_easy_admob
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  app_tracking_transparency: ^2.0.2+1
+  google_mobile_ads: ^1.0.1
 
 dev_dependencies:
   flutter_test:
