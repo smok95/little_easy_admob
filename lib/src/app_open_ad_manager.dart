@@ -13,13 +13,28 @@ class AppOpenAdManager {
   /// app이 resume 될 때마다 보여주기에는 부담스러울때, 표시간격을 설정
   final Duration? interval;
 
+  /// 광고화면이 표시될 때
+  final ValueChanged<AppOpenAdManager>? onAdShowedFullScreenContent;
+
   /// 광고화면이 닫힐때 이벤트
-  final VoidCallback? onAdDismissedFullScreenContent;
+  final ValueChanged<AppOpenAdManager>? onAdDismissedFullScreenContent;
+
+  /// 광고화면 표시에 실패했을 때
+  final ValueChanged<AppOpenAdManager>? onAdFailedToShowFullScreenContent;
+
+  /// 광고가 로드되었을 때
+  final ValueChanged<AppOpenAdManager>? onAdLoaded;
+
+  /// 노출횟수
+  int get impression => _impression;
 
   AppOpenAdManager(
     this.adUnitId, {
     this.interval = const Duration(minutes: 10),
+    this.onAdShowedFullScreenContent,
     this.onAdDismissedFullScreenContent,
+    this.onAdFailedToShowFullScreenContent,
+    this.onAdLoaded,
   });
 
   /// Load an [AppOpenAd]
@@ -32,6 +47,10 @@ class AppOpenAdManager {
           print('$ad loaded');
           _appOpenLoadTime = DateTime.now();
           _appOpenAd = ad;
+
+          if (onAdLoaded != null) {
+            onAdLoaded!(this);
+          }
         }, onAdFailedToLoad: (error) {
           print('AppOpenAd failed to load: $error');
         }),
@@ -75,15 +94,24 @@ class AppOpenAdManager {
     // Set the fullScreenContentCallback and show the ad.
     _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
+        _impression++;
         _isShowingAd = true;
         _lastShownTime = DateTime.now();
         print('$ad onAdShowedFullScreenContent');
+
+        if (onAdShowedFullScreenContent != null) {
+          onAdShowedFullScreenContent!(this);
+        }
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         print('$ad onAdFailedToShowFullScreenContent: $error');
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
+
+        if (onAdFailedToShowFullScreenContent != null) {
+          onAdFailedToShowFullScreenContent!(this);
+        }
       },
       onAdDismissedFullScreenContent: (ad) {
         print('$ad onAdDismissedFullScreenContent');
@@ -93,7 +121,7 @@ class AppOpenAdManager {
         loadAd();
 
         if (onAdDismissedFullScreenContent != null) {
-          onAdDismissedFullScreenContent!();
+          onAdDismissedFullScreenContent!(this);
         }
       },
     );
@@ -108,4 +136,7 @@ class AppOpenAdManager {
 
   /// 가장 마지막으로 표시된 시각
   DateTime? _lastShownTime;
+
+  /// 노출횟수
+  int _impression = 0;
 }
