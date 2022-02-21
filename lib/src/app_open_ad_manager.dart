@@ -1,28 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 /// 참고페이지 : https://developers.google.com/admob/flutter/app-open
 class AppOpenAdManager {
-  AppOpenAd? _appOpenAd;
-  bool _isShowingAd = false;
-
   /// AppOpen 광고 단위 ID
   final String adUnitId;
 
   /// Maximum dration allowed between loading and showing the ad.
   final Duration maxCacheDuration = const Duration(hours: 4);
 
-  /// Keep track of load time so we don't show and expired ad.
-  DateTime? _appOpenLoadTime;
-
   /// 광고 표시 간격 (default : 10min)
   /// app이 resume 될 때마다 보여주기에는 부담스러울때, 표시간격을 설정
   final Duration? interval;
 
-  /// 가장 마지막으로 표시된 시각
-  DateTime? _lastShownTime;
+  /// 광고화면이 닫힐때 이벤트
+  final VoidCallback? onAdDismissedFullScreenContent;
 
-  AppOpenAdManager(this.adUnitId,
-      {this.interval = const Duration(minutes: 10)});
+  AppOpenAdManager(
+    this.adUnitId, {
+    this.interval = const Duration(minutes: 10),
+    this.onAdDismissedFullScreenContent,
+  });
 
   /// Load an [AppOpenAd]
   void loadAd() {
@@ -93,8 +91,21 @@ class AppOpenAdManager {
         ad.dispose();
         _appOpenAd = null;
         loadAd();
+
+        if (onAdDismissedFullScreenContent != null) {
+          onAdDismissedFullScreenContent!();
+        }
       },
     );
     _appOpenAd!.show();
   }
+
+  AppOpenAd? _appOpenAd;
+  bool _isShowingAd = false;
+
+  /// Keep track of load time so we don't show and expired ad.
+  DateTime? _appOpenLoadTime;
+
+  /// 가장 마지막으로 표시된 시각
+  DateTime? _lastShownTime;
 }

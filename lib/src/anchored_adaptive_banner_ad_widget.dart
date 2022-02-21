@@ -3,8 +3,9 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AnchoredAdaptiveBannerAdWidget extends StatefulWidget {
   final String adUnitId;
-
-  const AnchoredAdaptiveBannerAdWidget({Key? key, required this.adUnitId})
+  final Color? backgroundColor;
+  const AnchoredAdaptiveBannerAdWidget(
+      {Key? key, required this.adUnitId, this.backgroundColor})
       : super(key: key);
 
   @override
@@ -57,7 +58,7 @@ class _AnchoredAdaptiveBannerAdWidgetState
         return Container(
           width: adSize.width.toDouble(),
           height: adSize.height.toDouble(),
-          color: Colors.grey.shade100,
+          color: widget.backgroundColor,
           child: child,
         );
       },
