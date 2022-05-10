@@ -1,4 +1,7 @@
 
+## 0.1.1 - 2022-05-10
+### Fixed
+- export BannerAdWidget
 
 ## 0.1.0 - 2022-05-10
 ### Changed

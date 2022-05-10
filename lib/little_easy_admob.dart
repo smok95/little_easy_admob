@@ -3,6 +3,7 @@ library little_easy_admob;
 export 'src/anchored_adaptive_banner_ad_widget.dart';
 export 'src/app_lifecycle_reactor.dart';
 export 'src/app_open_ad_manager.dart';
+export 'src/banner_ad_widget .dart';
 
 import 'dart:io';
 
