@@ -1,4 +1,8 @@
 
+## 0.0.6 - 2022-05-10
+### Added
+- BannerAdWidget 추가
+
 ## 0.0.5 - 2022-03-08
 ### Changed
 - AppLifecycleReactor 이벤트 핸들링 방식 
