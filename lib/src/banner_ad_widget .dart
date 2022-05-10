@@ -38,7 +38,7 @@ class BannerAdWidget extends StatelessWidget {
     final listener = _createListener();
 
     final adSize = _bannerAdSizeToAdSize(
-        bannerAdSize == null ? bannerAdSize! : BannerAdSize.banner);
+        bannerAdSize != null ? bannerAdSize! : BannerAdSize.banner);
     final banner = BannerAd(
         adUnitId: adUnitId,
         size: adSize,
