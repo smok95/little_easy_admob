@@ -1,4 +1,9 @@
 
+
+## 0.1.0 - 2022-05-10
+### Changed
+- google_mobile_ads: ^1.1.0 -> google_mobile_ads: ^1.2.0
+
 ## 0.0.6 - 2022-05-10
 ### Added
 - BannerAdWidget 추가
