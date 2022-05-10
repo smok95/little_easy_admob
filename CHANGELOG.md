@@ -1,4 +1,8 @@
 
+## 0.1.2 - 2022-05-10
+### Fixed
+- fix BannerAdWidget error
+
 ## 0.1.1 - 2022-05-10
 ### Fixed
 - export BannerAdWidget

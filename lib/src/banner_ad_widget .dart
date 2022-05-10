@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+enum BannerAdSize {
+  /// The standard banner (320x50) size.
+  banner,
+
+  /// The large banner (320x100) size.
+  largeBanner,
+
+  /// The medium rectangle (300x250) size.
+  mediumRectangle,
+
+  /// The full banner (468x60) size.
+  fullBanner,
+
+  /// The leaderboard (728x90) size.
+  leaderboard,
+
+  /// A dynamically sized banner that matches its parent's width and expands/contracts its height to match the ad's content after loading completes.
+  fluid,
+}
+
 /// 일반 형태의 배너광고
 class BannerAdWidget extends StatelessWidget {
   final String adUnitId;
   final Color? backgroundColor;
-  final AdSize adSize;
+  final BannerAdSize? bannerAdSize;
   const BannerAdWidget(
       {Key? key,
       required this.adUnitId,
-      required this.adSize,
+      this.bannerAdSize = BannerAdSize.banner,
       this.backgroundColor})
       : super(key: key);
 
@@ -17,8 +37,8 @@ class BannerAdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final listener = _createListener();
 
-    print("call FutureBuilder , AnchoredAdaptiveBannerAdWidget");
-
+    final adSize = _bannerAdSizeToAdSize(
+        bannerAdSize == null ? bannerAdSize! : BannerAdSize.banner);
     final banner = BannerAd(
         adUnitId: adUnitId,
         size: adSize,
@@ -33,6 +53,25 @@ class BannerAdWidget extends StatelessWidget {
       color: backgroundColor,
       child: AdWidget(ad: banner),
     );
+  }
+
+  AdSize _bannerAdSizeToAdSize(BannerAdSize value) {
+    switch (value) {
+      case BannerAdSize.banner:
+        return AdSize.banner;
+      case BannerAdSize.fluid:
+        return AdSize.fluid;
+      case BannerAdSize.fullBanner:
+        return AdSize.fullBanner;
+      case BannerAdSize.largeBanner:
+        return AdSize.largeBanner;
+      case BannerAdSize.leaderboard:
+        return AdSize.leaderboard;
+      case BannerAdSize.mediumRectangle:
+        return AdSize.mediumRectangle;
+      default:
+        return AdSize.banner;
+    }
   }
 
   BannerAdListener _createListener() {
