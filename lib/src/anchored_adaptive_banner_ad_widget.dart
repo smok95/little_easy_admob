@@ -15,26 +15,34 @@ class AnchoredAdaptiveBannerAdWidget extends StatefulWidget {
 
 class _AnchoredAdaptiveBannerAdWidgetState
     extends State<AnchoredAdaptiveBannerAdWidget> {
-  Future<AdSize?>? _adSize;
-
   @override
   void initState() {
     super.initState();
   }
 
+  Future<double> _getDeviceWidth(BuildContext context) async {
+    for (var i = 0; i < 50; i++) {
+      final width = MediaQuery.of(context).size.width;
+      if (width > 0) {
+        return width;
+      }
+
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+    return 0;
+  }
+
+  Future<AdSize?>? _getAdSize(BuildContext context) async {
+    final width = await _getDeviceWidth(context);
+    final orientation = MediaQuery.of(context).orientation;
+    print("AnchoredAdaptiveBannerAdWidget MediaQuery width=$width");
+    return AdSize.getAnchoredAdaptiveBannerAdSize(orientation, width.toInt());
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (_adSize == null) {
-      final orientation = MediaQuery.of(context).orientation;
-      final width = MediaQuery.of(context).size.width;
-      _adSize =
-          AdSize.getAnchoredAdaptiveBannerAdSize(orientation, width.toInt());
-    } else {
-      print("adSize determined");
-    }
-
     return FutureBuilder<AdSize?>(
-      future: _adSize,
+      future: _getAdSize(context),
       builder: (context, snapshot) {
         var adSize = AdSize.banner;
         Widget? child;
@@ -42,7 +50,8 @@ class _AnchoredAdaptiveBannerAdWidgetState
           final listener = _createListener();
           adSize = snapshot.data ?? AdSize.banner;
 
-          print("call FutureBuilder , AnchoredAdaptiveBannerAdWidget");
+          print(
+              "call FutureBuilder , AnchoredAdaptiveBannerAdWidget, size(w=${adSize.width}. h=${adSize.height})");
 
           final banner = BannerAd(
               adUnitId: widget.adUnitId,
