@@ -22,7 +22,8 @@ class _AnchoredAdaptiveBannerAdWidgetState
 
   Future<double> _getDeviceWidth(BuildContext context) async {
     for (var i = 0; i < 50; i++) {
-      final width = MediaQuery.of(context).size.width;
+      final media = MediaQuery.maybeOf(context);
+      final width = media == null ? 0.0 : media.size.width;
       if (width > 0) {
         return width;
       }

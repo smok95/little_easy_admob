@@ -1,3 +1,7 @@
+## 0.1.5 - 2022-05-26
+### Fixed
+- release mode MediaQuery.Of(context) exception 수정
+
 ## 0.1.4 - 2022-05-26
 ### Fixed
 - 앱시작시 AnchoredAdaptiveBannerAdWidget 표시되지 않는 현상 수정 (MediaQuery.size.width==0 문제)
