@@ -1,3 +1,9 @@
+
+## 0.1.6 - 2022-09-20
+### Changed
+- app_tracking_transparency: ^2.0.2+1  -> 2.0.2+4
+- google_mobile_ads: ^1.2.0 -> ^2.0.1
+
 ## 0.1.5 - 2022-05-26
 ### Fixed
 - release mode MediaQuery.Of(context) exception 수정
