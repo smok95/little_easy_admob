@@ -18,8 +18,8 @@ class LittleEasyAdmob {
       {bool requestTrackingAuthorization = false}) async {
     if (requestTrackingAuthorization && !kIsWeb && Platform.isIOS) {
       // AppTrackingTransparency 설정
-      final status =
-          await AppTrackingTransparency.requestTrackingAuthorization();
+      //final status =
+      await AppTrackingTransparency.requestTrackingAuthorization();
     }
 
     return await MobileAds.instance.initialize();

@@ -1,3 +1,6 @@
+// ignore_for_file: file_names
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -78,24 +81,34 @@ class BannerAdWidget extends StatelessWidget {
     return BannerAdListener(
       onAdLoaded: (ad) {
         // Called when ad ad is successfully received.
-        print('BannerAd loaded.');
+        if (kDebugMode) {
+          print('BannerAd loaded.');
+        }
       },
       onAdFailedToLoad: (ad, error) {
         // Dispose the ad here to free resources.
         ad.dispose();
-        print('BannerAd failed to load: $error');
+        if (kDebugMode) {
+          print('BannerAd failed to load: $error');
+        }
       },
       onAdOpened: (ad) {
         // Called when an ad opens an overlay that covers the screen.
-        print('BannerAd opened.');
+        if (kDebugMode) {
+          print('BannerAd opened.');
+        }
       },
       onAdClosed: (ad) {
         // Called when an ad removes an overlay that covers the screen.
-        print('BannerAd closed.');
+        if (kDebugMode) {
+          print('BannerAd closed.');
+        }
       },
       onAdImpression: (ad) {
         // Called when ad impression occurs on the ad.
-        print('BannerAd impression.');
+        if (kDebugMode) {
+          print('BannerAd impression.');
+        }
       },
     );
   }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'app_open_ad_manager.dart';
@@ -38,7 +38,9 @@ class AppLifecycleReactor {
   }
 
   void _onAppStateChanged(AppState state) {
-    print('New AppState state: $state');
+    if (kDebugMode) {
+      print('New AppState state: $state');
+    }
 
     // Try to show an app open ad if the app is being forground and
     // We're not alreay showing an app open ad.

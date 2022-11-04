@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+double gDeviceWidth = 0;
 
 class AnchoredAdaptiveBannerAdWidget extends StatefulWidget {
   final String adUnitId;
@@ -34,10 +37,23 @@ class _AnchoredAdaptiveBannerAdWidgetState
   }
 
   Future<AdSize?>? _getAdSize(BuildContext context) async {
-    final width = await _getDeviceWidth(context);
-    final orientation = MediaQuery.of(context).orientation;
-    print("AnchoredAdaptiveBannerAdWidget MediaQuery width=$width");
-    return AdSize.getAnchoredAdaptiveBannerAdSize(orientation, width.toInt());
+    if (gDeviceWidth <= 0) {
+      gDeviceWidth = await _getDeviceWidth(context);
+    }
+
+    var orientation = Orientation.portrait;
+    if (mounted) {
+      final media = MediaQuery.maybeOf(context);
+      if (media != null) {
+        orientation = media.orientation;
+      }
+    }
+
+    if (kDebugMode) {
+      print("AnchoredAdaptiveBannerAdWidget MediaQuery width=$gDeviceWidth");
+    }
+    return AdSize.getAnchoredAdaptiveBannerAdSize(
+        orientation, gDeviceWidth.toInt());
   }
 
   @override
@@ -51,8 +67,10 @@ class _AnchoredAdaptiveBannerAdWidgetState
           final listener = _createListener();
           adSize = snapshot.data ?? AdSize.banner;
 
-          print(
-              "call FutureBuilder , AnchoredAdaptiveBannerAdWidget, size(w=${adSize.width}. h=${adSize.height})");
+          if (kDebugMode) {
+            print(
+                "call FutureBuilder , AnchoredAdaptiveBannerAdWidget, size(w=${adSize.width}. h=${adSize.height})");
+          }
 
           final banner = BannerAd(
               adUnitId: widget.adUnitId,
@@ -79,24 +97,34 @@ class _AnchoredAdaptiveBannerAdWidgetState
     return BannerAdListener(
       onAdLoaded: (ad) {
         // Called when ad ad is successfully received.
-        print('BannerAd loaded.');
+        if (kDebugMode) {
+          print('BannerAd loaded.');
+        }
       },
       onAdFailedToLoad: (ad, error) {
         // Dispose the ad here to free resources.
         ad.dispose();
-        print('BannerAd failed to load: $error');
+        if (kDebugMode) {
+          print('BannerAd failed to load: $error');
+        }
       },
       onAdOpened: (ad) {
         // Called when an ad opens an overlay that covers the screen.
-        print('BannerAd opened.');
+        if (kDebugMode) {
+          print('BannerAd opened.');
+        }
       },
       onAdClosed: (ad) {
         // Called when an ad removes an overlay that covers the screen.
-        print('BannerAd closed.');
+        if (kDebugMode) {
+          print('BannerAd closed.');
+        }
       },
       onAdImpression: (ad) {
         // Called when ad impression occurs on the ad.
-        print('BannerAd impression.');
+        if (kDebugMode) {
+          print('BannerAd impression.');
+        }
       },
     );
   }

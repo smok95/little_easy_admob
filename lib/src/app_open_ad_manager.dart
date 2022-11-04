@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 /// 참고페이지 : https://developers.google.com/admob/flutter/app-open
@@ -44,7 +44,9 @@ class AppOpenAdManager {
         adUnitId: adUnitId,
         request: const AdRequest(),
         adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
-          print('$ad loaded');
+          if (kDebugMode) {
+            print('$ad loaded');
+          }
           _appOpenLoadTime = DateTime.now();
           _appOpenAd = ad;
 
@@ -52,7 +54,9 @@ class AppOpenAdManager {
             onAdLoaded!(this);
           }
         }, onAdFailedToLoad: (error) {
-          print('AppOpenAd failed to load: $error');
+          if (kDebugMode) {
+            print('AppOpenAd failed to load: $error');
+          }
         }),
         orientation: orientation);
   }
@@ -64,19 +68,25 @@ class AppOpenAdManager {
 
   void showAdIfAvailable() {
     if (!isAdAvailable) {
-      print('Tried to show ad before available.');
+      if (kDebugMode) {
+        print('Tried to show ad before available.');
+      }
       loadAd();
       return;
     }
 
     if (_isShowingAd) {
-      print('Tried to show ad while already showing an ad.');
+      if (kDebugMode) {
+        print('Tried to show ad while already showing an ad.');
+      }
       return;
     }
 
     if (_lastShownTime != null && interval != null) {
       if (DateTime.now().subtract(interval!).isBefore(_lastShownTime!)) {
-        print('${interval!.inMinutes}분내에 광고가 노출된 적이 있어, 이번에는 표시안함');
+        if (kDebugMode) {
+          print('${interval!.inMinutes}분내에 광고가 노출된 적이 있어, 이번에는 표시안함');
+        }
         return;
       }
     }
@@ -84,7 +94,9 @@ class AppOpenAdManager {
     _lastShownTime = null;
 
     if (DateTime.now().subtract(maxCacheDuration).isAfter(_appOpenLoadTime!)) {
-      print('Maximum cache duration exceeded. Loading another ad.');
+      if (kDebugMode) {
+        print('Maximum cache duration exceeded. Loading another ad.');
+      }
       _appOpenAd!.dispose();
       _appOpenAd = null;
       loadAd();
@@ -97,14 +109,18 @@ class AppOpenAdManager {
         _impression++;
         _isShowingAd = true;
         _lastShownTime = DateTime.now();
-        print('$ad onAdShowedFullScreenContent');
+        if (kDebugMode) {
+          print('$ad onAdShowedFullScreenContent');
+        }
 
         if (onAdShowedFullScreenContent != null) {
           onAdShowedFullScreenContent!(this);
         }
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
+        if (kDebugMode) {
+          print('$ad onAdFailedToShowFullScreenContent: $error');
+        }
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
@@ -114,7 +130,9 @@ class AppOpenAdManager {
         }
       },
       onAdDismissedFullScreenContent: (ad) {
-        print('$ad onAdDismissedFullScreenContent');
+        if (kDebugMode) {
+          print('$ad onAdDismissedFullScreenContent');
+        }
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;

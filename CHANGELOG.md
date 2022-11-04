@@ -1,4 +1,10 @@
 
+## 0.1.7 - 2022-11-04
+### Changed
+- app_tracking_transparency: 2.0.2+4 -> 2.0.3
+- google_mobile_ads: 2.0.1 -> 2.2.0
+- MediaQuery.size 확인이 되면, 이후에는 다시 재확인하지 않도록 수정
+
 ## 0.1.6 - 2022-09-20
 ### Changed
 - app_tracking_transparency: ^2.0.2+1  -> 2.0.2+4

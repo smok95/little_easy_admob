@@ -1,6 +1,6 @@
 name: little_easy_admob
 description: 조금 쉬운 AdMob
-version: 0.1.6
+version: 0.1.7
 homepage: https://github.com/smok95/little_easy_admob
 
 environment:
@@ -11,13 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   
-  app_tracking_transparency: ^2.0.2+4
-  google_mobile_ads: ^2.0.1
+  app_tracking_transparency: ^2.0.3
+  google_mobile_ads: ^2.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
