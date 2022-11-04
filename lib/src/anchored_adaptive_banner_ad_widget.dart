@@ -39,6 +39,10 @@ class _AnchoredAdaptiveBannerAdWidgetState
   Future<AdSize?>? _getAdSize(BuildContext context) async {
     if (gDeviceWidth <= 0) {
       gDeviceWidth = await _getDeviceWidth(context);
+
+      if (kDebugMode) {
+        print("AnchoredAdaptiveBannerAdWidget MediaQuery width=$gDeviceWidth");
+      }
     }
 
     var orientation = Orientation.portrait;
@@ -49,9 +53,6 @@ class _AnchoredAdaptiveBannerAdWidgetState
       }
     }
 
-    if (kDebugMode) {
-      print("AnchoredAdaptiveBannerAdWidget MediaQuery width=$gDeviceWidth");
-    }
     return AdSize.getAnchoredAdaptiveBannerAdSize(
         orientation, gDeviceWidth.toInt());
   }
