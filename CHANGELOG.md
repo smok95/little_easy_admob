@@ -1,4 +1,9 @@
 
+## 0.1.8 - 2024-08-12
+### Changed
+- google_mobile_ads 2.4.0 -> 5.1.0
+- flutter_lints 2.0.3 -> 4.0.0
+
 ## 0.1.7 - 2022-11-04
 ### Changed
 - app_tracking_transparency: 2.0.2+4 -> 2.0.3
