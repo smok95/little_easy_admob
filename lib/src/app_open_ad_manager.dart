@@ -39,26 +39,25 @@ class AppOpenAdManager {
 
   /// Load an [AppOpenAd]
   void loadAd() {
-    const orientation = AppOpenAd.orientationPortrait;
     AppOpenAd.load(
-        adUnitId: adUnitId,
-        request: const AdRequest(),
-        adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
-          if (kDebugMode) {
-            print('$ad loaded');
-          }
-          _appOpenLoadTime = DateTime.now();
-          _appOpenAd = ad;
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      adLoadCallback: AppOpenAdLoadCallback(onAdLoaded: (ad) {
+        if (kDebugMode) {
+          print('$ad loaded');
+        }
+        _appOpenLoadTime = DateTime.now();
+        _appOpenAd = ad;
 
-          if (onAdLoaded != null) {
-            onAdLoaded!(this);
-          }
-        }, onAdFailedToLoad: (error) {
-          if (kDebugMode) {
-            print('AppOpenAd failed to load: $error');
-          }
-        }),
-        orientation: orientation);
+        if (onAdLoaded != null) {
+          onAdLoaded!(this);
+        }
+      }, onAdFailedToLoad: (error) {
+        if (kDebugMode) {
+          print('AppOpenAd failed to load: $error');
+        }
+      }),
+    );
   }
 
   /// Whether an ad is available to be shown.
