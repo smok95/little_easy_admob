@@ -1,3 +1,6 @@
+## 0.1.9 - 2025-12-28
+### Changed
+- Add platform support declaration for Android and iOS in pubspec.yaml
 
 ## 0.1.8 - 2024-08-12
 ### Changed
